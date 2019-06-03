@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import KanbanView from './components/KanbanView';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const data = require('./data.json');
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { boardData: { lanes: [] } };
+    this.getBoard = this.getBoard.bind(this);
+  }
+
+  async componentWillMount() {
+    const response = await this.getBoard();
+    this.setState({ boardData: response });
+  }
+
+  getBoard() {
+    return new Promise(resolve => {
+      resolve(data);
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h3>Board X</h3>
+        </header>
+        <div className="App-intro">
+          <KanbanView data={data} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
