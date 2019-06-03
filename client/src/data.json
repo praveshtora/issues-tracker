@@ -1,0 +1,18 @@
+{
+  "lifeCycles": [
+    {
+      "id": "lc1",
+      "name": "New Tasks",
+      "issues": [
+        {
+          "id": "iss1",
+          "title": "Buy Milk"
+        },
+        {
+          "id": "iss2",
+          "title": "Pay Rent"
+        }
+      ]
+    }
+  ]
+}

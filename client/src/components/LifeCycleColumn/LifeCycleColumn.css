@@ -1,0 +1,15 @@
+.LifeCycleColumn {
+  margin: 8px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.LifeCycleColumn header {
+  background-color: goldenrod;
+  padding: 8px;
+  color: #ffffff;
+}
+
+.LifeCycleColumn .issue-container {
+}
