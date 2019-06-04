@@ -1,80 +1,63 @@
 import { serverUrl } from '../constants';
-export const ADD_ISSUE = 'ADD_ISSUE';
+export const ADD_NEW_ISSUE = 'ADD_NEW_ISSUE';
 export const REORDER_ISSUE = 'REORDER_ISSUE';
 
-export const reducer = async (state = { lifeCycles: {} }, action) => {
-  switch (action.type) {
-    case ADD_ISSUE: {
-      const { payload } = action;
+const isEmptyObj = obj => Object.keys(obj).length === 0;
 
-      const response = await fetch(serverUrl, {
+export const reducer = (state = { lifeCycles: {} }, action) => {
+  switch (action.type) {
+    case ADD_NEW_ISSUE: {
+      const { payload, boardID } = action;
+
+      const { title, lifeCycleName } = payload;
+      const { lifeCycles } = state;
+
+      fetch(serverUrl+'board/issue/add/' + boardID, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
       });
+      
+      console.log(state)
+      console.log('lifeCycles', lifeCycles);
+      console.log('lifeCycleName', lifeCycleName);
+      const lifeCycleIssues = isEmptyObj(lifeCycles)
+        ? []
+        : lifeCycles[lifeCycleName];
 
-      if (!response.success) {
-        // Display error message : response.message
-        return state;
-      }
+        console.log("new state", {
+          lifeCycles: {
+            ...lifeCycles,
+            [lifeCycleName]: [
+              ...lifeCycleIssues,
+              {
+                title
+              }
+            ]
+          }
+        })
 
-      const { title, description, lifeCycleName } = payload;
-      const { lifeCycles } = state;
-      const lifeCycleIssues = lifeCycles[lifeCycleName];
-      // const lifecycle = Object.entries(lifeCycles).find(([key, value]) => key === lifeCycle);
       return {
         lifeCycles: {
           ...lifeCycles,
           [lifeCycleName]: [
             ...lifeCycleIssues,
             {
-              title,
-              description
+              title
             }
           ]
         }
       };
-
-      // return {
-      //   response
-      // }
     }
+
     case REORDER_ISSUE: {
       const { payload } = action;
-      console.log(payload)
-      return payload;
+      console.log("loaded new state", { ...payload })
+      return { ...payload };
     }
     default:
       return state;
   }
 };
-
-// {
-//   lifeCycles: {
-//     'To-Do': [],
-//     Progress: [
-//       {
-//         _id: 'id2',
-//         issueId: '1003',
-//         title: 'Refactor Repo',
-//         description: 'Nothing much',
-//         asignee: 'Vikalp',
-//         lifeCycle: 'Done',
-//         comments: ['comment2']
-//       }
-//     ],
-//     Done: [
-//       {
-//         _id: 'id1',
-//         issueId: '1002',
-//         title: 'Create Repo',
-//         description: 'ASKK askjka asda',
-//         asignee: 'Manish',
-//         lifeCycle: 'Done',
-//         comments: ['comment1']
-//       }
-//     ]
-//   }
-// };

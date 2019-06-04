@@ -1,6 +1,6 @@
-import React from "react";
-import "./App.css";
-import KanbanView from "./components/KanbanView";
+import React from 'react';
+import './App.css';
+import KanbanView from './components/KanbanView';
 import Dashboard from "./components/Dashboard/DashboardList";
 import SignIn from "./components/SignIn/SignIn";
 import { Button } from "@material-ui/core";
@@ -48,6 +48,7 @@ class App extends React.Component {
             </Button>
           </div>
         </header>
+
         <Router>
           <Switch>
             <PrivateRoute path="/dashboard/:id" component={Dashboard} />
@@ -63,6 +64,7 @@ class App extends React.Component {
             <Redirect exact from="/" to="/dashboard" />
           </Switch>
         </Router>
+
       </div>
     );
   }
