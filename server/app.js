@@ -7,14 +7,13 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const dashboardRouter = require("./routes/dashboard");
-const boardRouter = require('./routes/boards')
-const issueRouter = require('./routes/issue');
+const boardRouter = require("./routes/boards");
+const issueRouter = require("./routes/issue");
+const signinRouter = require("./routes/signin");
 const db = require("./db/db");
 const cors = require("cors");
 
-const app = express();
-
-app.use(cors());
+const app = express().use("*", cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,8 +22,9 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/dashboard", dashboardRouter);
-app.use('/board', boardRouter);
-app.use('/issue',issueRouter);
+app.use("/board", boardRouter);
+app.use("/issue", issueRouter);
+app.use("/signin", signinRouter);
 
 //Connection to Mongo
 db.connect;

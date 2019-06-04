@@ -90,7 +90,6 @@ const KanbanView = () => {
 
       dispatch({ type: REORDER_ISSUE, payload: newState });
     }
-
     
     fetch(serverUrl + 'issue/' + issue._id, {
       method: 'POST',
@@ -107,6 +106,7 @@ const KanbanView = () => {
   if (state === Promise.resolve(state)) {
     state.then(data => console.log(data));
   }
+
 
   const lifeCycleColumns = Object.keys(lifeCycles).map(key => (
     <LifeCycleColumn key={key} title={key} issues={lifeCycles[key]} />

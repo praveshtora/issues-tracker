@@ -10,7 +10,6 @@ import { SERVER_URL, USER_ID } from "./../../constants";
 const AddBoard = function(props) {
   const [open, setOpen] = React.useState(false);
   function handleClickOpen() {
-    console.log("uhjk");
     setOpen(true);
   }
   let lifeCycle = "";

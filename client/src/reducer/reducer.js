@@ -38,6 +38,7 @@ export const reducer = (state = { lifeCycles: {} }, action) => {
             ]
           }
         })
+
       return {
         lifeCycles: {
           ...lifeCycles,
