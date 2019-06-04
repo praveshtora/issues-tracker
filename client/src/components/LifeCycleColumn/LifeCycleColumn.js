@@ -3,7 +3,7 @@ import Issue from '../Issue';
 import './LifeCycleColumn.css';
 import { Droppable } from 'react-beautiful-dnd';
 import AddIssue from '../AddIssue';
-import reducer, { ADD_ISSUE, REORDER_ISSUE } from '../../reducer/reducer';
+import { reducer, ADD_ISSUE, REORDER_ISSUE } from '../../reducer/reducer';
 
 class IssueList extends React.Component {
   shouldComponentUpdate(newProps) {
@@ -21,7 +21,7 @@ const LifeCycleColumn = ({ title, issues = [] }) => {
 
   const handleOnSubmit = newIssues => {
     console.log(newIssues);
-    dispatch({ type: ADD_ISSUE, payload: {"title": newIssues }});
+    dispatch({ type: ADD_ISSUE, payload: { title: newIssues } });
   };
 
   return (

@@ -1,8 +1,8 @@
-import React, {useReducer, useEffect} from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import LifeCycleColumn from '../LifeCycleColumn';
 import './KanbanView.css';
-import reducer, { ADD_ISSUE } from '../../reducer/reducer';
+import { reducer, ADD_ISSUE, REORDER_ISSUE } from '../../reducer/reducer';
 
 const KanbanView = () => {
   // constructor(props) {
@@ -14,9 +14,11 @@ const KanbanView = () => {
 
   const [state, dispatch] = useReducer(reducer, { lifeCycles: {} });
 
-  useEffect(()=> {
-    getBoard().then(response => setState({ lifeCycles: response }));
-  }, [])
+  useEffect(() => {
+    getBoard().then(response =>
+      dispatch({ type: REORDER_ISSUE, payload: { lifeCycles: response } })
+    );
+  }, []);
   // componentDidMount() {
   // }
 
@@ -52,11 +54,11 @@ const KanbanView = () => {
       };
       resolve(data.lifeCycles);
     });
-  }
+  };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = result => {
     const { source, destination } = result;
-    console.log(result )
+    console.log(result);
     if (
       !destination ||
       (destination.droppableId === source.droppableId &&
@@ -75,8 +77,8 @@ const KanbanView = () => {
     const issue = startIssues[source.index];
     startIssues.splice(source.index, 1);
 
-    console.log(startLifeCycleName)
-    console.log(finishLifeCycleName)
+    console.log(startLifeCycleName);
+    console.log(finishLifeCycleName);
     if (startLifeCycleName === finishLifeCycleName) {
       startIssues.splice(destination.index, 0, issue);
 
@@ -90,7 +92,7 @@ const KanbanView = () => {
         }
       };
 
-      dispatch({type:REORDER_ISSUE , payload: newState});
+      dispatch({ type: REORDER_ISSUE, payload: newState });
     } else {
       const newStartLifeCycle = startIssues;
 
@@ -107,26 +109,23 @@ const KanbanView = () => {
         }
       };
 
-      dispatch({type:REORDER_ISSUE , payload: newState});
+      dispatch({ type: REORDER_ISSUE, payload: newState });
     }
-  }
-  
+  };
 
-  render() {
-    const { lifeCycles = {} } = state;
+  const { lifeCycles = {} } = state;
 
-    const lifeCycleColumns = Object.keys(lifeCycles).map(key => (
-      <LifeCycleColumn key={key} title={key} issues={lifeCycles[key]} />
-    ));
+  const lifeCycleColumns = Object.keys(lifeCycles).map(key => (
+    <LifeCycleColumn key={key} title={key} issues={lifeCycles[key]} />
+  ));
 
-    return (
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="KanbanView life-cycle-columns-container">
-          {lifeCycleColumns}
-        </div>
-      </DragDropContext>
-    );
-  }
-}
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="KanbanView life-cycle-columns-container">
+        {lifeCycleColumns}
+      </div>
+    </DragDropContext>
+  );
+};
 
 export default KanbanView;

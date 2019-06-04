@@ -43,6 +43,7 @@ export const reducer = async (state = { lifeCycles: {} }, action) => {
     }
     case REORDER_ISSUE: {
       const { payload } = action;
+      console.log(payload)
       return payload;
     }
     default:
