@@ -4,17 +4,18 @@ const database = require('../db/db');
 const ObjectId = require("mongodb").ObjectID;
 
 router.post('/:id/',async (req,res,next) => {
-  const id = parseInt(req.params.id);
+  const id = (req.params.id);
+  console.log(id);
   const {lifeCycle} = req.body;
-  if (isNaN(id)) {
-    res.status(400).send({
-      success : false,
-      message : `${req.params.id} should be number`
-    })
-  }
+  // if (isNaN(id)) {
+  //   res.status(400).send({
+  //     success : false,
+  //     message : `${req.params.id} should be number`
+  //   })
+  // }
   const db = database.getDB();
   try {
-    const issue = await db.collection('issues').updateOne({ issueId: id },{$set : {lifeCycle : lifeCycle}});
+    const issue = await db.collection('issues').updateOne({ _id: ObjectId(id) },{$set : {lifeCycle : lifeCycle}});
     if (!issue) {
       res.status(400).send({
         success : false,

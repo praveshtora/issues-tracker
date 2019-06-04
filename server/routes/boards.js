@@ -37,7 +37,7 @@ router.get("/:id/", async (req, res, next) => {
       const { lifeCycle } = issue;
       lmap[lifeCycle].push(issue);
     });
-    const response = { lifeCycles: lmap };
+    const response = { success : true, "lifeCycles": lmap }
     res.status(200).send(response);
   } catch (exception) {
     console.log(exception);
@@ -47,12 +47,14 @@ router.get("/:id/", async (req, res, next) => {
 
 /* Add Issue */
 router.post("/issue/add/:id/", async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params.id);
   const db = database.getDB();
 
   try {
     const board = await db
       .collection("boards")
-      .findOne({ boardId: req.params.id });
+      .findOne({ boardId: parseInt(req.params.id) });
 
     if (!board) {
       res.status(404).send({
@@ -64,12 +66,12 @@ router.post("/issue/add/:id/", async (req, res, next) => {
     const issue = {
       ...req.body,
       comments: [],
-      lifeCycle: board.lifeCycles[0]
+      lifeCycle: req.body.lifeCycleName
     };
     const newlyInserted = await db.collection("issues").insert(issue);
     const dashboard = await db
       .collection("boards")
-      .findAndModify({ boardId: req.params.id }, [], {
+      .findAndModify({ boardId: parseInt(req.params.id) }, [], {
         $push: { issues: newlyInserted.insertedIds[0] }
       });
     res.send({ success: true, message: "Issue added successfully" });
