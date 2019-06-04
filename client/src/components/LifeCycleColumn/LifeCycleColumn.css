@@ -14,7 +14,7 @@
   color: #ffffff;
 }
 .LifeCycleColumn .issue-container {
-  min-height: 64px;
+  height: 100%;
 }
 .LifeCycleColumn .add-issue-bottomBar {
   position: absolute;

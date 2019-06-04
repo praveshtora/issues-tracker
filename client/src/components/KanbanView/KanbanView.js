@@ -2,7 +2,9 @@ import React, { useReducer, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import LifeCycleColumn from '../LifeCycleColumn';
 import './KanbanView.css';
-import { reducer, ADD_ISSUE, REORDER_ISSUE } from '../../reducer/reducer';
+import { reducer, REORDER_ISSUE } from '../../reducer/reducer';
+import { serverUrl } from '../../constants';
+import axios from 'axios';
 
 const KanbanView = () => {
   // constructor(props) {
@@ -15,50 +17,27 @@ const KanbanView = () => {
   const [state, dispatch] = useReducer(reducer, { lifeCycles: {} });
 
   useEffect(() => {
-    getBoard().then(response =>
-      dispatch({ type: REORDER_ISSUE, payload: { lifeCycles: response } })
-    );
+    async function fetchData() {
+      const res = await getBoard();
+      if (res.data.success) {
+        dispatch({
+          type: REORDER_ISSUE,
+          payload: { lifeCycles: res.data.lifeCycles }
+        });
+      }
+    }
+    fetchData();
   }, []);
   // componentDidMount() {
   // }
 
-  const getBoard = () => {
-    return new Promise(resolve => {
-      // const data = require('./data.json');
-      const data = {
-        lifeCycles: {
-          'To-Do': [],
-          Progress: [
-            {
-              _id: 'id2',
-              issueId: '1003',
-              title: 'Refactor Repo',
-              description: 'Nothing much',
-              asignee: 'Vikalp',
-              lifeCycle: 'Done',
-              comments: ['comment2']
-            }
-          ],
-          Done: [
-            {
-              _id: 'id1',
-              issueId: '1002',
-              title: 'Create Repo',
-              description: 'ASKK askjka asda',
-              asignee: 'Manish',
-              lifeCycle: 'Done',
-              comments: ['comment1']
-            }
-          ]
-        }
-      };
-      resolve(data.lifeCycles);
-    });
+  const getBoard = async () => {
+    return await axios.get(serverUrl + 'board/' + '100');
+    // return fetch(serverUrl + 'board/' + '5cf673414cb9d8447ba381de');
   };
 
   const onDragEnd = result => {
     const { source, destination } = result;
-    console.log(result);
     if (
       !destination ||
       (destination.droppableId === source.droppableId &&
@@ -111,9 +90,23 @@ const KanbanView = () => {
 
       dispatch({ type: REORDER_ISSUE, payload: newState });
     }
+
+    
+    fetch(serverUrl + 'issue/' + issue._id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ lifeCycle: finishLifeCycleName })
+    });
   };
 
   const { lifeCycles = {} } = state;
+  console.log("changed state", state)
+
+  if (state === Promise.resolve(state)) {
+    state.then(data => console.log(data));
+  }
 
   const lifeCycleColumns = Object.keys(lifeCycles).map(key => (
     <LifeCycleColumn key={key} title={key} issues={lifeCycles[key]} />
