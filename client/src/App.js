@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import KanbanView from "./components/KanbanView";
 import Dashboard from "./components/Dashboard/DashboardList";
+import SignIn from "./components/SignIn/SignIn";
 const data = require("./data.json");
 
 class App extends React.Component {
@@ -28,7 +29,8 @@ class App extends React.Component {
         <header>
           <h1>Issue Tracker</h1>
         </header>
-        <Dashboard />
+        <SignIn />
+        {/* <Dashboard /> */}
         {/* <div className="App-intro">
           <KanbanView data={data} />
         </div> */}
