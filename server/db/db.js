@@ -1,11 +1,11 @@
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 
 // Connection URL
-const url = 'mongodb://localhost:27017';
- 
+const url = "mongodb://localhost:27017";
+
 // Database Name
-const dbName = 'temp-issues-tracker';
- 
+const dbName = "temp-issues-tracker";
+
 // Use connect method to connect to the server
 
 let db;
@@ -16,8 +16,11 @@ const connect = MongoClient.connect(url, function(err, client) {
     process.exit(1);
   }
   console.log("Connected successfully to mongo");
- 
-  db = client.db(dbName);
- });
 
- module.exports = {connect, db}
+  db = client.db(dbName);
+});
+
+getDB = function() {
+  return db;
+};
+module.exports = { connect, getDB };
