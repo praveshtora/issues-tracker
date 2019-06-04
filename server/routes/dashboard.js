@@ -12,7 +12,10 @@ router.post("/add/:id", async function(req, res, next) {
       .collection("users")
       .findOne({ _id: ObjectId(req.params.id) });
     if (!currentUserId) {
-      res.send("User Id not matched");
+      res.status(404).send({
+        success: false,
+        message: `No user found`
+      });
     }
     const boards = db.collection("boards").find();
     const boardId = (await boards.count()) + 1;
