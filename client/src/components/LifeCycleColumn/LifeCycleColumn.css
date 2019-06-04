@@ -5,10 +5,19 @@
   overflow: hidden;
   background-color: #eeeeee;
   min-width: 320px;
+  position: relative;
 }
 
 .LifeCycleColumn header {
   background-color: goldenrod;
   padding: 8px;
   color: #ffffff;
+}
+.LifeCycleColumn .issue-container {
+  min-height: 64px;
+}
+.LifeCycleColumn .add-issue-bottomBar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

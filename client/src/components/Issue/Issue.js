@@ -6,23 +6,27 @@ import './Issue.css';
 
 class Issue extends React.Component {
   render() {
-    const { issue=[], index } = this.props;
+    const { issue = [], index } = this.props;
     // const { id, title } = issue;
-    const { _id, title } = issue;
+    const { _id, title, asignee } = issue;
     return (
       // <Draggable draggableId={id} index={index}>
       <>
-      {issue !== [] && 
-        <Draggable draggableId={_id} index={index}>
-          {({ dragHandleProps, draggableProps, innerRef }) => (
-            <div {...draggableProps} {...dragHandleProps} ref={innerRef}>
-              <Card className="issue-card">
-                <CardContent>{title}</CardContent>
-              </Card>
-            </div> 
-          )}
-        </Draggable>
-      }
+        {issue !== [] && (
+          <Draggable draggableId={_id} index={index}>
+            {({ dragHandleProps, draggableProps, innerRef }) => (
+              <div {...draggableProps} {...dragHandleProps} ref={innerRef}>
+                <Card className="issue-card">
+                  <CardContent className="issue-content">
+                    <span>{title}</span>
+
+                    <span>{asignee}</span>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </Draggable>
+        )}
       </>
     );
   }

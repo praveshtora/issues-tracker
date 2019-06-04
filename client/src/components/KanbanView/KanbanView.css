@@ -1,4 +1,5 @@
 .KanbanView.life-cycle-columns-container {
   display: flex;
   flex-direction: row;
+  height: calc(100vh - 96px);
 }
