@@ -54,6 +54,13 @@ router.post("/issue/add/:id/", async (req, res, next) => {
       .collection("boards")
       .findOne({ boardId: req.params.id });
 
+    if (!board) {
+      res.status(404).send({
+        success: false,
+        message: `No board found`
+      });
+    }
+
     const issue = {
       ...req.body,
       comments: [],
@@ -70,5 +77,38 @@ router.post("/issue/add/:id/", async (req, res, next) => {
     res.status(500).send(err);
   }
 });
+/*END Add Issue */
+
+/* Add Comment*/
+router.post("/issue/:id/addcomment/", async (req, res, next) => {
+  const db = database.getDB();
+
+  try {
+    const issue = await db
+      .collection("issues")
+      .findOne({ _id: ObjectId(req.params.id) });
+
+    if (!issue) {
+      res.status(404).send({
+        success: false,
+        message: `No issue found`
+      });
+    }
+    const comment = {
+      ...req.body,
+      createdAt: Date.now()
+    };
+    const newlyInserted = await db.collection("comments").insert(comment);
+    const dashboard = await db
+      .collection("issues")
+      .findAndModify({ _id: ObjectId(req.params.id) }, [], {
+        $push: { comments: newlyInserted.insertedIds[0] }
+      });
+    res.send({ success: true, message: "Comment added successfully" });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+/*END Add Comment */
 
 module.exports = router;
