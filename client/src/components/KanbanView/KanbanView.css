@@ -1,0 +1,4 @@
+.KanbanView.life-cycle-columns-container {
+  display: flex;
+  flex-direction: row;
+}

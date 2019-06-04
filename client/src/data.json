@@ -13,6 +13,30 @@
           "title": "Pay Rent"
         }
       ]
+    },
+    {
+      "id": "lc2",
+      "name": "In Progress",
+      "issues": [
+        {
+          "id": "iss3",
+          "title": "video call to mom"
+        },
+        {
+          "id": "iss4",
+          "title": "go on a walk"
+        }
+      ]
+    },
+    {
+      "id": "lc3",
+      "name": "Done",
+      "issues": [
+        {
+          "id": "iss5",
+          "title": "buy camera"
+        }
+      ]
     }
   ]
 }
