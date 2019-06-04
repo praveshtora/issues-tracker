@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { SERVER_URL, USER_ID } from "../../constants";
-
+import { Redirect } from "react-router-dom";
 function MadeWithLove() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
   let user = { email: "", password: "" };
   const handleUsernameChange = evt => {
@@ -72,6 +72,9 @@ export default function SignIn() {
       if (res.success) {
         localStorage.setItem("userId", res.data);
         console.log(localStorage.getItem("userId"));
+        return props.history.push(
+          `/dashboard/${localStorage.getItem("userId")}`
+        );
       } else {
         alert(res.message);
       }

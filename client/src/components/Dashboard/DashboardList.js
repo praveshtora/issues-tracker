@@ -10,12 +10,13 @@ import {
 import AddBoard from "./AddBoard";
 import "./../../App.css";
 import { SERVER_URL, USER_ID } from "../../constants";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class DashboardList extends Component {
   constructor() {
     super();
     this.state = {
-      boards: [{ title: "Hello" }, { title: "Jhon" }],
+      boards: [],
       isOpen: false
     };
     this.fetchBoards = this.fetchBoards.bind(this);
@@ -35,7 +36,9 @@ export default class DashboardList extends Component {
     try {
       const response = await fetch(SERVER_URL + "dashboard/getList/" + USER_ID);
       const boards = await response.json();
-      this.setState({ boards });
+      if (boards && Object.entries().length > 0) {
+        this.setState({ boards });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +73,7 @@ export default class DashboardList extends Component {
     const cardBoard = this.state.boards.map((board, index) => {
       return (
         <div className="float-left">
-          <CustomCard key={index} title={board.title} />
+          <CustomCard key={index} title={board.title} boardId={board.boardId} />
         </div>
       );
     });
@@ -115,7 +118,9 @@ const CustomCard = function(props) {
         ""
       ) : (
         <CardActions style={{ justifyContent: "center" }}>
-          <Button size="small">View Board</Button>
+          <Button size="small">
+            <Link to={`/board/${props.boardId}`}>View Board</Link>
+          </Button>
         </CardActions>
       )}
     </Card>

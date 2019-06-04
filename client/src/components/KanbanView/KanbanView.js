@@ -1,8 +1,8 @@
-import React, { useReducer, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import LifeCycleColumn from '../LifeCycleColumn';
-import './KanbanView.css';
-import { reducer, ADD_ISSUE, REORDER_ISSUE } from '../../reducer/reducer';
+import React, { useReducer, useEffect } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import LifeCycleColumn from "../LifeCycleColumn";
+import "./KanbanView.css";
+import { reducer, ADD_ISSUE, REORDER_ISSUE } from "../../reducer/reducer";
 
 const KanbanView = () => {
   // constructor(props) {
@@ -27,27 +27,27 @@ const KanbanView = () => {
       // const data = require('./data.json');
       const data = {
         lifeCycles: {
-          'To-Do': [],
+          "To-Do": [],
           Progress: [
             {
-              _id: 'id2',
-              issueId: '1003',
-              title: 'Refactor Repo',
-              description: 'Nothing much',
-              asignee: 'Vikalp',
-              lifeCycle: 'Done',
-              comments: ['comment2']
+              _id: "id2",
+              issueId: "1003",
+              title: "Refactor Repo",
+              description: "Nothing much",
+              asignee: "Vikalp",
+              lifeCycle: "Done",
+              comments: ["comment2"]
             }
           ],
           Done: [
             {
-              _id: 'id1',
-              issueId: '1002',
-              title: 'Create Repo',
-              description: 'ASKK askjka asda',
-              asignee: 'Manish',
-              lifeCycle: 'Done',
-              comments: ['comment1']
+              _id: "id1",
+              issueId: "1002",
+              title: "Create Repo",
+              description: "ASKK askjka asda",
+              asignee: "Manish",
+              lifeCycle: "Done",
+              comments: ["comment1"]
             }
           ]
         }
