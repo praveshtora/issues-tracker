@@ -31,3 +31,26 @@
     transform: rotate(360deg);
   }
 }
+.card {
+  min-width: 240px !important;
+  height: 30vh;
+  margin: 20px;
+}
+
+.title {
+  font-size: 22px !important;
+}
+
+.fab {
+  margin: 10px !important;
+}
+.pos {
+  margin-bottom: 12px !important;
+}
+.center {
+  text-align: center;
+}
+
+.float-left {
+  float: left;
+}

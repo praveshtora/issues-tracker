@@ -1,8 +1,8 @@
-import React from 'react';
-import './App.css';
-import KanbanView from './components/KanbanView';
-
-const data = require('./data.json');
+import React from "react";
+import "./App.css";
+import KanbanView from "./components/KanbanView";
+import Dashboard from "./components/Dashboard/DashboardList";
+const data = require("./data.json");
 
 class App extends React.Component {
   constructor(props) {
@@ -24,13 +24,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <header>
-          <h3>Board X</h3>
+          <h1>Issue Tracker</h1>
         </header>
-        <div className="App-intro">
+        <Dashboard />
+        {/* <div className="App-intro">
           <KanbanView data={data} />
-        </div>
+        </div> */}
       </div>
     );
   }
