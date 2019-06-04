@@ -6,23 +6,6 @@ import SignIn from "./components/SignIn/SignIn";
 const data = require("./data.json");
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { boardData: { lanes: [] } };
-    this.getBoard = this.getBoard.bind(this);
-  }
-
-  async componentWillMount() {
-    const response = await this.getBoard();
-    this.setState({ boardData: response });
-  }
-
-  getBoard() {
-    return new Promise(resolve => {
-      resolve(data);
-    });
-  }
-
   render() {
     return (
       <div>
@@ -31,6 +14,10 @@ class App extends React.Component {
         </header>
         <SignIn />
         {/* <Dashboard /> */}
+        <div className="App-intro">
+          <KanbanView />
+        </div>
+        <Dashboard />
         {/* <div className="App-intro">
           <KanbanView data={data} />
         </div> */}
