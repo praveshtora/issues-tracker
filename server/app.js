@@ -7,6 +7,8 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const dashboardRouter = require("./routes/dashboard");
+const boardRouter = require('./routes/boards')
+
 const db = require("./db/db");
 const cors = require("cors");
 
@@ -21,7 +23,9 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/dashboard", dashboardRouter);
+app.use('/board', boardRouter);
 
+//Connection to Mongo
 db.connect;
 
 // catch 404 and forward to error handler
