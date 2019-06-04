@@ -33,8 +33,9 @@
 }
 .card {
   min-width: 240px !important;
-  height: 30vh;
+  height: 20vh;
   margin: 20px;
+  background-color: darkgray !important;
 }
 
 .title {

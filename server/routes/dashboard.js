@@ -38,7 +38,7 @@ router.post("/add/:id", async function(req, res, next) {
         boards: [newlyInserted.insertedIds[0]]
       });
     }
-    res.send(dashboard);
+    res.send({ success: true, message: "Board added successfully" });
   } catch (ex) {
     res.send(ex);
   }
